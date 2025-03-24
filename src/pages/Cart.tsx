@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useStore } from '../store/useStore'
 import { TrashIcon, ArrowLeftIcon, ShoppingBagIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
 
-export const Cart = () => {
+const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useStore()
   
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -231,3 +231,5 @@ export const Cart = () => {
     </div>
   )
 }
+
+export default Cart

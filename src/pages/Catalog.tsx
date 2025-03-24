@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useStore, Product } from '../store/useStore'
 import { MagnifyingGlassIcon, FunnelIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
 
-export const Catalog = () => {
+const Catalog = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
@@ -153,3 +153,5 @@ export const Catalog = () => {
     </div>
   )
 }
+
+export default Catalog

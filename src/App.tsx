@@ -2,9 +2,9 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/Layout'
 
-const Catalog = lazy(() => import('./pages/Catalog').then(module => ({ default: module.Catalog })))
-const Cart = lazy(() => import('./pages/Cart').then(module => ({ default: module.Cart })))
-const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })))
+const Catalog = lazy(() => import('./pages/Catalog'))
+const Cart = lazy(() => import('./pages/Cart'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
   return (
