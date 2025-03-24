@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useStore, Product } from '../store/useStore'
 import { MagnifyingGlassIcon, FunnelIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
 
