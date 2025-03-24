@@ -4,16 +4,22 @@
   <meta charset="utf-8">
   <title>Стильный Интернет-Магазин</title>
   <script type="text/javascript">
-    // Перенаправление на корневую страницу с сохранением пути
-    var pathSegmentsToKeep = 1;
+    // Перенаправление для SPA на GitHub Pages
+    // Основано на https://github.com/rafgraph/spa-github-pages
+    var segmentCount = 1; // Количество сегментов в пути после домена
     var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
+    
+    // Перенаправляем все запросы на index.html
+    var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+    var path = l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/';
+    
+    // Добавляем параметр p с путем и q с параметрами запроса
+    redirectUrl += path + '?p=' + 
+                   encodeURIComponent(l.pathname.slice(path.length)) +
+                   (l.search ? '&q=' + encodeURIComponent(l.search.slice(1)) : '') +
+                   l.hash;
+    
+    window.location.replace(redirectUrl);
   </script>
 </head>
 <body>
