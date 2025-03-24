@@ -71,7 +71,7 @@ const ProductDetail = () => {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        {/* Product Image */}
+
         <div className="aspect-square overflow-hidden rounded-xl bg-white p-8 shadow-soft dark:bg-neutral-800">
           <img 
             src={product.image} 
@@ -81,7 +81,7 @@ const ProductDetail = () => {
           />
         </div>
 
-        {/* Product Info */}
+
         <div>
           <div className="mb-2">
             <span className="inline-block rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">

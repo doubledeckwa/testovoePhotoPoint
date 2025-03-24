@@ -16,13 +16,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const setSearchQuery = useStore((state) => state.setSearchQuery);
   const { theme, toggleTheme } = useTheme();
 
-  // Локальное состояние для ввода поиска
+
   const [searchInput, setSearchInput] = useState("");
 
-  // Применяем debounce к вводу поиска (задержка 300мс)
+
   const debouncedSearchTerm = useDebounce(searchInput, 300);
 
-  // Обновляем глобальное состояние поиска только когда дебаунсированное значение изменяется
+
   useEffect(() => {
     setSearchQuery(debouncedSearchTerm);
   }, [debouncedSearchTerm, setSearchQuery]);
@@ -32,7 +32,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <header className="sticky top-0 z-10 bg-white dark:bg-neutral-800 shadow-soft transition-colors duration-200">
         <div className="container-custom">
           <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
+
             <Link to="/" className="flex items-center space-x-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
                 <span className="text-xl font-bold text-white">E</span>
@@ -75,7 +75,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 )}
               </button>
 
-              {/* Cart Link */}
+
               <Link
                 to="/cart"
                 className="group relative flex items-center text-neutral-600 dark:text-neutral-300 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
