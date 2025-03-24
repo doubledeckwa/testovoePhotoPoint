@@ -22,11 +22,11 @@ const Cart = () => {
   if (cart.length === 0) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center py-16 text-center">
-        <div className="mb-6 rounded-full bg-neutral-100 p-6">
-          <ShoppingBagIcon className="h-12 w-12 text-neutral-400" />
+        <div className="mb-6 rounded-full bg-neutral-100 dark:bg-neutral-800 p-6">
+          <ShoppingBagIcon className="h-12 w-12 text-neutral-400 dark:text-neutral-300" />
         </div>
-        <h2 className="mb-2 font-display text-2xl font-semibold text-neutral-900">Your cart is empty</h2>
-        <p className="mb-8 max-w-md text-neutral-600">Looks like you haven't added any products to your cart yet.</p>
+        <h2 className="mb-2 font-display text-2xl font-semibold text-neutral-900 dark:text-neutral-950">Your cart is empty</h2>
+        <p className="mb-8 max-w-md text-neutral-600 dark:text-neutral-300">Looks like you haven't added any products to your cart yet.</p>
         <Link to="/" className="btn-primary">
           Continue Shopping
         </Link>
@@ -37,7 +37,7 @@ const Cart = () => {
   return (
     <div className="pb-16">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="font-display text-2xl font-bold text-neutral-900 sm:text-3xl">Shopping Cart</h1>
+        <h1 className="font-display text-2xl font-bold text-neutral-900 dark:text-neutral-950 sm:text-3xl">Shopping Cart</h1>
         <Link to="/" className="btn-outline flex w-full items-center justify-center space-x-2 sm:w-auto">
           <ArrowLeftIcon className="h-4 w-4" />
           <span>Continue Shopping</span>
@@ -46,23 +46,23 @@ const Cart = () => {
       
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div className="rounded-xl bg-white shadow-soft">
-            <div className="hidden border-b border-neutral-200 px-6 py-4 sm:grid sm:grid-cols-12">
+          <div className="rounded-xl bg-white dark:bg-neutral-800 shadow-soft">
+            <div className="hidden border-b border-neutral-200 dark:border-neutral-700 px-6 py-4 sm:grid sm:grid-cols-12">
               <div className="sm:col-span-6">
-                <h3 className="text-sm font-medium text-neutral-500">Product</h3>
+                <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-950">Product</h3>
               </div>
               <div className="sm:col-span-2 text-center">
-                <h3 className="text-sm font-medium text-neutral-500">Price</h3>
+                <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-950">Price</h3>
               </div>
               <div className="sm:col-span-2 text-center">
-                <h3 className="text-sm font-medium text-neutral-500">Quantity</h3>
+                <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-950">Quantity</h3>
               </div>
               <div className="sm:col-span-2 text-right">
-                <h3 className="text-sm font-medium text-neutral-500">Total</h3>
+                <h3 className="text-sm font-medium text-neutral-500 dark:text-neutral-950">Total</h3>
               </div>
             </div>
 
-            <div className="divide-y divide-neutral-200">
+            <div className="divide-y divide-neutral-200 dark:divide-neutral-700">
               {cart.map((item) => (
                 <div
                   key={item.id}
@@ -70,7 +70,7 @@ const Cart = () => {
                 >
                   {/* Product */}
                   <div className="flex gap-4 sm:col-span-6">
-                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100 p-2 sm:h-24 sm:w-24">
+                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700 p-2 sm:h-24 sm:w-24">
                       <img
                         src={item.image}
                         alt={item.title}
@@ -79,10 +79,10 @@ const Cart = () => {
                     </div>
                     
                     <div className="flex flex-1 flex-col">
-                      <h3 className="font-medium text-neutral-900 line-clamp-1" title={item.title}>
+                      <h3 className="font-medium text-neutral-900 dark:text-neutral-950 line-clamp-1" title={item.title}>
                         {item.title}
                       </h3>
-                      <p className="mt-1 text-sm text-neutral-500 line-clamp-2" title={item.description}>
+                      <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400 line-clamp-2" title={item.description}>
                         {item.description}
                       </p>
                       <div className="mt-auto flex items-center sm:hidden">
@@ -98,18 +98,18 @@ const Cart = () => {
 
                   {/* Price - Mobile */}
                   <div className="flex justify-between sm:hidden">
-                    <span className="text-sm text-neutral-500">Price:</span>
-                    <span className="font-medium text-neutral-900">${item.price.toFixed(2)}</span>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-400">Price:</span>
+                    <span className="font-medium text-neutral-900 dark:text-neutral-950">${item.price.toFixed(2)}</span>
                   </div>
                   
                   {/* Price - Desktop */}
                   <div className="hidden sm:col-span-2 sm:flex sm:items-center sm:justify-center">
-                    <span className="font-medium text-neutral-900">${item.price.toFixed(2)}</span>
+                    <span className="font-medium text-neutral-900 dark:text-neutral-950">${item.price.toFixed(2)}</span>
                   </div>
                   
                   {/* Quantity - Mobile */}
                   <div className="flex items-center justify-between sm:hidden">
-                    <span className="text-sm text-neutral-500">Quantity:</span>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-400">Quantity:</span>
                     <div className="flex items-center">
                       <button
                         onClick={() => decrementQuantity(item.id, item.quantity)}
@@ -118,7 +118,7 @@ const Cart = () => {
                       >
                         <MinusIcon className="mx-auto h-4 w-4" />
                       </button>
-                      <span className="mx-2 w-8 text-center">{item.quantity}</span>
+                      <span className="mx-2 w-8 text-center dark:text-white">{item.quantity}</span>
                       <button
                         onClick={() => incrementQuantity(item.id, item.quantity)}
                         disabled={item.quantity >= 10}
@@ -135,17 +135,17 @@ const Cart = () => {
                       <button
                         onClick={() => decrementQuantity(item.id, item.quantity)}
                         disabled={item.quantity <= 1}
-                        className="h-8 w-8 rounded-l border border-neutral-300 bg-white text-neutral-500 disabled:opacity-50"
+                        className="h-8 w-8 rounded-l border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 disabled:opacity-50"
                       >
                         <MinusIcon className="mx-auto h-4 w-4" />
                       </button>
-                      <span className="flex h-8 w-10 items-center justify-center border-y border-neutral-300 bg-white">
+                      <span className="flex h-8 w-10 items-center justify-center border-y border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 dark:text-white">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => incrementQuantity(item.id, item.quantity)}
                         disabled={item.quantity >= 10}
-                        className="h-8 w-8 rounded-r border border-neutral-300 bg-white text-neutral-500 disabled:opacity-50"
+                        className="h-8 w-8 rounded-r border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 disabled:opacity-50"
                       >
                         <PlusIcon className="mx-auto h-4 w-4" />
                       </button>
@@ -154,20 +154,20 @@ const Cart = () => {
                   
                   {/* Total - Mobile */}
                   <div className="flex justify-between sm:hidden">
-                    <span className="text-sm text-neutral-500">Total:</span>
-                    <span className="font-medium text-primary-700">${(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-400">Total:</span>
+                    <span className="font-medium text-primary-700 dark:text-neutral-950">${(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                   
                   {/* Total - Desktop */}
                   <div className="hidden sm:col-span-2 sm:flex sm:items-center sm:justify-end">
-                    <span className="font-medium text-primary-700">${(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="font-medium text-primary-700 dark:text-neutral-950">${(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                   
                   {/* Remove button - Desktop */}
                   <div className="hidden sm:absolute sm:right-4 sm:top-4 sm:block">
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="rounded-full p-1.5 text-neutral-400 transition-colors hover:bg-red-50 hover:text-red-600"
+                      className="rounded-full p-1.5 text-neutral-400 dark:text-neutral-300 transition-colors hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400"
                       aria-label="Remove item"
                     >
                       <TrashIcon className="h-5 w-5" />
@@ -177,11 +177,11 @@ const Cart = () => {
               ))}
             </div>
             
-            <div className="border-t border-neutral-200 p-4 sm:p-6">
+            <div className="border-t border-neutral-200 dark:border-neutral-700 p-4 sm:p-6">
               <div className="flex justify-end">
                 <button 
                   onClick={clearCart}
-                  className="btn-outline text-sm text-neutral-600 hover:text-red-600"
+                  className="btn-outline text-sm text-neutral-600 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-400"
                 >
                   Clear Cart
                 </button>
@@ -191,37 +191,37 @@ const Cart = () => {
         </div>
 
         <div>
-          <div className="sticky top-24 rounded-xl bg-white p-6 shadow-soft">
+          <div className="sticky top-24 rounded-xl bg-white dark:bg-neutral-800 p-6 shadow-soft">
             <div className="pb-4">
-              <h2 className="font-display text-lg font-semibold text-neutral-900">Order Summary</h2>
+              <h2 className="font-display text-lg font-semibold text-neutral-900 dark:text-neutral-950">Order Summary</h2>
             </div>
             
-            <div className="space-y-3 border-b border-neutral-200 py-4">
+            <div className="space-y-3 border-b border-neutral-200 dark:border-neutral-700 py-4">
               <div className="flex justify-between text-sm">
-                <span className="text-neutral-600">Subtotal</span>
-                <span className="font-medium">${subtotal.toFixed(2)}</span>
+                <span className="text-neutral-600 dark:text-neutral-400">Subtotal</span>
+                <span className="font-medium dark:text-neutral-950">${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-neutral-600">Shipping</span>
-                <span className="font-medium">Free</span>
+                <span className="text-neutral-600 dark:text-neutral-400">Shipping</span>
+                <span className="font-medium dark:text-neutral-950">Free</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-neutral-600">Tax (10%)</span>
-                <span className="font-medium">${tax.toFixed(2)}</span>
+                <span className="text-neutral-600 dark:text-neutral-400">Tax (10%)</span>
+                <span className="font-medium dark:text-neutral-950">${tax.toFixed(2)}</span>
               </div>
             </div>
             
             <div className="pt-4">
               <div className="mb-6 flex justify-between">
-                <span className="text-base font-medium text-neutral-900">Total</span>
-                <span className="text-xl font-semibold text-primary-700">${total.toFixed(2)}</span>
+                <span className="text-base font-medium text-neutral-900 dark:text-neutral-950">Total</span>
+                <span className="text-xl font-semibold text-primary-700 dark:text-neutral-950">${total.toFixed(2)}</span>
               </div>
               
               <button className="btn-primary w-full py-3">
                 Proceed to Checkout
               </button>
               
-              <p className="mt-4 text-center text-xs text-neutral-500">
+              <p className="mt-4 text-center text-xs text-neutral-500 dark:text-neutral-400">
                 Secure checkout powered by Stripe. Your payment information is encrypted and secure.
               </p>
             </div>

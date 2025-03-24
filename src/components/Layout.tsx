@@ -1,17 +1,35 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { useStore } from '../store/useStore'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  ShoppingCartIcon,
+  MagnifyingGlassIcon,
+  SunIcon,
+  MoonIcon,
+} from "@heroicons/react/24/outline";
+import { useStore } from "../store/useStore";
+import { useTheme } from "../hooks/useTheme";
+import { useDebounce } from "../hooks/useDebounce";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
-  const cart = useStore((state) => state.cart)
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
-  const setSearchQuery = useStore((state) => state.setSearchQuery)
+  const cart = useStore((state) => state.cart);
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const setSearchQuery = useStore((state) => state.setSearchQuery);
+  const { theme, toggleTheme } = useTheme();
+
+  // Локальное состояние для ввода поиска
+  const [searchInput, setSearchInput] = useState("");
+
+  // Применяем debounce к вводу поиска (задержка 300мс)
+  const debouncedSearchTerm = useDebounce(searchInput, 300);
+
+  // Обновляем глобальное состояние поиска только когда дебаунсированное значение изменяется
+  useEffect(() => {
+    setSearchQuery(debouncedSearchTerm);
+  }, [debouncedSearchTerm, setSearchQuery]);
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-white shadow-soft">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200">
+      <header className="sticky top-0 z-10 bg-white dark:bg-neutral-800 shadow-soft transition-colors duration-200">
         <div className="container-custom">
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
@@ -19,33 +37,53 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
                 <span className="text-xl font-bold text-white">E</span>
               </div>
-              <span className="font-display text-xl font-bold text-neutral-900">E-Store</span>
+              <span className="font-display text-xl font-bold text-neutral-900 dark:text-white">
+                E-Store
+              </span>
             </Link>
 
-            {/* Search */}
             <div className="hidden flex-1 max-w-md px-8 lg:block">
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <MagnifyingGlassIcon className="h-5 w-5 text-neutral-400" />
+                  <MagnifyingGlassIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-300" />
                 </div>
                 <input
                   type="text"
-                  className="input w-full py-2 pl-10"
+                  className="input w-full py-2 pl-10 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 dark:placeholder-neutral-400"
                   placeholder="Search products..."
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  aria-label="Search products"
                 />
               </div>
             </div>
 
-            {/* Navigation */}
             <div className="flex items-center space-x-6">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center justify-center rounded-full p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700 transition-colors"
+                aria-label={
+                  theme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                }
+              >
+                {theme === "dark" ? (
+                  <SunIcon className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <MoonIcon className="h-5 w-5" aria-hidden="true" />
+                )}
+              </button>
+
+              {/* Cart Link */}
               <Link
                 to="/cart"
-                className="group relative flex items-center text-neutral-600 transition-colors hover:text-primary-600"
+                className="group relative flex items-center text-neutral-600 dark:text-neutral-300 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                aria-label={`Shopping cart with ${totalItems} items`}
               >
-                <ShoppingCartIcon className="h-6 w-6" />
+                <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                 {totalItems > 0 && (
-                  <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary-600 text-xs font-medium text-white">
+                  <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary-600 text-xs font-medium text-white dark:bg-primary-500">
                     {totalItems}
                   </span>
                 )}
@@ -55,37 +93,50 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="container-custom py-8">
-        {children}
-      </main>
+      <main className="container-custom py-8">{children}</main>
 
-      {/* Footer */}
-      <footer className="bg-neutral-900 py-12 text-neutral-400">
+      <footer className="bg-white dark:bg-neutral-800 py-8 shadow-soft-top transition-colors duration-200">
         <div className="container-custom">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div>
-              <h3 className="mb-4 text-lg font-semibold text-white">About Us</h3>
-              <p className="mb-4">We offer the best products at competitive prices with excellent customer service.</p>
+          <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
+            <div className="flex items-center space-x-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600">
+                <span className="text-sm font-bold text-white">E</span>
+              </div>
+              <span className="font-display text-sm font-bold text-neutral-900 dark:text-white">
+                E-Store
+              </span>
             </div>
-            <div>
-              <h3 className="mb-4 text-lg font-semibold text-white">Quick Links</h3>
-              <ul className="space-y-2">
-                <li><Link to="/" className="hover:text-primary-400">Home</Link></li>
-                <li><Link to="/cart" className="hover:text-primary-400">Cart</Link></li>
-              </ul>
+
+            <div className="text-sm text-neutral-600 dark:text-neutral-300">
+              © {new Date().getFullYear()} E-Store. All rights reserved.
             </div>
-            <div>
-              <h3 className="mb-4 text-lg font-semibold text-white">Contact</h3>
-              <p>Email: info@estore.com</p>
-              <p>Phone: +1 (555) 123-4567</p>
+
+            <div className="flex space-x-4">
+              <a
+                href="#"
+                className="text-neutral-600 hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+                aria-label="Visit our Facebook page"
+              >
+                Facebook
+              </a>
+              <a
+                href="#"
+                className="text-neutral-600 hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+                aria-label="Visit our Twitter page"
+              >
+                Twitter
+              </a>
+              <a
+                href="#"
+                className="text-neutral-600 hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+                aria-label="Visit our Instagram page"
+              >
+                Instagram
+              </a>
             </div>
-          </div>
-          <div className="mt-8 border-t border-neutral-800 pt-8 text-center">
-            <p>© {new Date().getFullYear()} E-Store. All rights reserved.</p>
           </div>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};

@@ -4,6 +4,7 @@ import { Layout } from './components/Layout'
 
 const Catalog = lazy(() => import('./pages/Catalog'))
 const Cart = lazy(() => import('./pages/Cart'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Catalog />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
